@@ -1,5 +1,6 @@
 package com.leetcode;
 
+import java.time.Instant;
 import java.util.Stack;
 
 /**
@@ -8,8 +9,17 @@ import java.util.Stack;
 public class Fibonacci {
     public static void main(String[] args) {
         Solution solution = new Solution();
+        long l1 = Instant.now().toEpochMilli();
         long result = solution.fibRecOfMemo(10);
+        long l2 = Instant.now().toEpochMilli();
+        long result1 = solution.fibRec(10);
+        long l3 = Instant.now().toEpochMilli();
+        System.out.println(l2-l1);
         System.out.println(result);
+        System.out.println(l3-l2);
+        System.out.println(result1);
+        long result2 = solution.fibStack(10);
+        System.out.println(result2);
     }
 
     static class Solution {
@@ -47,6 +57,9 @@ public class Fibonacci {
             if (n == 1) {
                 memo[1] = 1;
                 return memo[1];
+            }
+            if(memo[n]>0){
+                return memo[n];
             }
             memo[n] = fibRecOfMemo(n - 1, memo) + fibRecOfMemo(n - 2, memo);
             return memo[n];
